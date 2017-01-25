@@ -3,20 +3,26 @@ sudo: required
 services:
   - docker
 
+language: node_js
+
+env:
+  global:
+  - secure: ZENkgnG0SA1gKELo4lsTjKEvfevogiuGtwYL5MobiYbMWPYMAUpZSoMtmzymGXGuQWzVocG3aoC8nNbhEFTTeeBvZva1q8BUUO6jiq2zLeqnQl91BFWnwTxpPOlVsZA2rfbiFeB0ljOqucle+eLYmmoNMRfzhHySK8TdeL2vLLVUb8VsFFTVAzs3SOyepU6Q/OV+LW/w1nK0A58lY4IXAlZGyfEc2up0qrcu/veD93khiFmL3msu5qW3a6y8kwJzWrMjAdQsS8vfKevR7fbERn8kSqCIUpuSb7SziureS2qxTyddCRw5aEOIICWabOBb/GE2jHgRupjNPfMoJhK+7EdvQnEruzpDBDV0rQflL/4qgquGcXRBRXUToyJDHR7pVIp+RYb4l7iCpVOTpl4hF91CAJVc+VHeHjuXPnLW9hhZR1i+mWpzelsCoBTGNuarEStkPg/nuPXwLS/w9h5TBhOxnp4S6bii3a/7ZjYjxA26dU2yAq/MqIEIbeWIqHTspW08o99Mu+mpNXEZB8arKWMh7yTpxlfI/3gW4g8YzROpjQSZmrFWTzXjv0RcM2CxWjuzXkUjYhwWhyVSBXUIcr+lAFdshRc8oj/uMpTCym8mk051smdtpaW4BSsN44F6+yIebOk/QZAcYMwCtuCUan6iUlQiPFmSfh0LnCyycss=
+  - secure: c6WS4uahAh2tFf7CPInq18ZCEQxqmskEI05euVsObm/AEfJiqZL0+M1GXjKTdAARvRxhTduGJQa5P+anWxUbCtA43cKD7mbJh91hUfIEhghcj+M9nl4grGJHt83b5MwxPefwVCepMWrFp01TyoGGPOrwuuUFROHuNkMShjhmMvt7z1uLYv34CYVzziRdUB3f7RtYYBK9qu458xLM3UFjgT72mDBPIHUeGI31JE5yLNMjKl2jkmVq3rO53pdbzuU7OFzQTAX1Sos2vt7KQQB8psKrM5yIwp88Cv7fn6Yzk50g2cqr2WDBoIU4GMKpfMQgqVP4SbvK7YOswkVyU1hMfFXCjqdMxJUkEFhM7yYwR+UDFtga1dDbuN9yT1GTts5CxgoyiSCIubQRhXeEWJFf+5Cc+s9DODnCm8XxxSm0lmNvpoZgLmuJpHAx2IaoxsC2eYzXbMDqzeCwGWDP85bT9oZFdwHpDGXRcmWRx8kf68AobPNkrap+QN5985el+s/GmbUYGACPjACcQKgpqogL2lvrgl7SzBXl2B79Ppl4FpKGgwkFpsdF+pNs8i0uF7DtMzU5YVhbG2oJ1OjMKGs6o7jjzw9SofOvJm+NOhdSojZDMbPy3kEGgIXCWbZVXEw6a+GLjHJAE412ES4uKtZmmj7H2UrX9nadTwCm8AtxQqI=
+
 matrix:
   include:
-    - env:
-      - ELASTICSEARCH_CURATOR_VERSION=4.2.6
-      - ELASTICSEARCH_CURATOR_CLI=curator_cli
-    - env:
-      - ELASTICSEARCH_CURATOR_VERSION=3.5.1
-      - ELASTICSEARCH_CURATOR_CLI=curator
+  - env:
+    - ELASTICSEARCH_CURATOR_VERSION=4.2.6
+    - ELASTICSEARCH_CURATOR_CLI=curator_cli
+  - env:
+    - ELASTICSEARCH_CURATOR_VERSION=3.5.1
+    - ELASTICSEARCH_CURATOR_CLI=curator
 
 script:
   - docker build --build-arg ELASTICSEARCH_CURATOR_VERSION=$ELASTICSEARCH_CURATOR_VERSION --build-arg ELASTICSEARCH_CURATOR_CLI=$ELASTICSEARCH_CURATOR_CLI -t mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION .
-
 before_deploy:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 deploy:
-  - docker push mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION
+- docker push mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION
