@@ -1,0 +1,22 @@
+sudo: required
+
+services:
+  - docker
+
+matrix:
+  include:
+    - env:
+      - ELASTICSEARCH_CURATOR_VERSION=4.2.6
+      - ELASTICSEARCH_CURATOR_CLI=curator_cli
+    - env:
+      - ELASTICSEARCH_CURATOR_VERSION=3.5.1
+      - ELASTICSEARCH_CURATOR_CLI=curator
+
+script:
+  - docker build --build-arg ELASTICSEARCH_CURATOR_VERSION=$ELASTICSEARCH_CURATOR_VERSION --build-arg ELASTICSEARCH_CURATOR_CLI=$ELASTICSEARCH_CURATOR_CLI -t mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION .
+
+before_deploy:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+deploy:
+  - docker push mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION
