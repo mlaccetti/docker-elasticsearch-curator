@@ -1,5 +1,7 @@
-sudo: required
+language: node_js
 
+sudo: required
+dist: trusty
 services:
   - docker
 
@@ -10,9 +12,15 @@ env:
 
 matrix:
   include:
-  - env:
+  - node_js: 6
+    services:
+    - docker
+    env:
     - ELASTICSEARCH_CURATOR_VERSION=4.2.5 ELASTICSEARCH_CURATOR_CLI=curator_cli
-  - env:
+  - node_js: 6
+    services:
+    - docker
+    env:
     - ELASTICSEARCH_CURATOR_VERSION=3.5.1 ELASTICSEARCH_CURATOR_CLI=curator
 
 script:
