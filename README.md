@@ -1,5 +1,7 @@
 # Elasticsearch Curator
 
+[![Build Status](https://travis-ci.org/mlaccetti/docker-elasticsearch-curator.svg?branch=master)](https://travis-ci.org/mlaccetti/docker-elasticsearch-curator)
+
 An tiny Alpine-based container that allows one to use the Elasticsearch `curator` command. By default, runs in a loop sleeping for the `INTERVAL_IN_HOURS`, then running cleanup again.  However, you can pass in a new `CMD` - prefix with `-` to simply append arguments to the `curator` command, or execute a completely different argument (e.g. `/bin/bash`).
 
 Available in two different flavours:
