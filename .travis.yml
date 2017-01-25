@@ -19,8 +19,7 @@ matrix:
 
 script:
   - docker build --build-arg ELASTICSEARCH_CURATOR_VERSION=$ELASTICSEARCH_CURATOR_VERSION --build-arg ELASTICSEARCH_CURATOR_CLI=$ELASTICSEARCH_CURATOR_CLI -t mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION .
-before_deploy:
-- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
-deploy:
-- docker push mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push mlaccetti/elasticsearch-curator:$ELASTICSEARCH_CURATOR_VERSION
