@@ -16,7 +16,7 @@ matrix:
     services:
     - docker
     env:
-    - ELASTICSEARCH_CURATOR_VERSION=4.2.5 ELASTICSEARCH_CURATOR_CLI=curator_cli
+    - ELASTICSEARCH_CURATOR_VERSION=4.2.6 ELASTICSEARCH_CURATOR_CLI=curator_cli
   - node_js: 6
     services:
     - docker
